@@ -45,6 +45,40 @@ public class Util {
             return stat;
         }
     }
+
+
+    public static class HibernateUtil {
+
+        public static void main(String[] args) {
+            HibernateUtil h = new HibernateUtil();
+            SessionFactory g = h.getSessionFactory();
+        }
+
+        private static SessionFactory sessionFactory;
+
+        public static SessionFactory getSessionFactory() {
+            if (sessionFactory == null) {
+                Configuration conf = new Configuration();
+
+                Properties c = new Properties();
+
+                c.put(Environment.URL, HOST);
+                c.put(Environment.USER, USERNAME);
+                c.put(Environment.PASS, PASSWORD);
+                c.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+                c.put(Environment.HBM2DDL_AUTO, "create-drop");
+                c.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
+                c.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+
+                conf.setProperties(c);
+                conf.addAnnotatedClass(User.class);
+                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                        .applySettings(conf.getProperties()).build();
+                sessionFactory = conf.buildSessionFactory(serviceRegistry);
+            }
+            return sessionFactory;
+        }
+    }
 }
 
 
