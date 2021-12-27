@@ -1,10 +1,9 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Table
+import javax.persistence.*;
+
+@Table(name = "jdbc")
 public class User {
     @Id
     private Long id;

@@ -5,13 +5,15 @@ import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 
 
+import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
     UserDao userdaoHIB = new UserDaoJDBCImpl();
 
     public void createUsersTable() {
-        userdaoHIB.createUsersTable();
+            userdaoHIB.createUsersTable();
     }
 
     public void dropUsersTable() {
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(String name, String lastName, byte age) {
         userdaoHIB.saveUser(name, lastName, age);
         System.out.println("User с именем – " + name + " добавлен в базу данных");
+
     }
 
     public void removeUserById(long id) {

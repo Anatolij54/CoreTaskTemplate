@@ -18,13 +18,14 @@ public class Util {
     public static class JDBC {
 
         private Connection connection = null;
-        private Statement stat = null;
+
 
         public JDBC() {
             try {
                 Driver driver = new com.mysql.cj.jdbc.Driver();
                 DriverManager.registerDriver(driver);
                 connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+                connection.setAutoCommit(false);
                 if (!connection.isClosed()) {
                 }
             } catch (SQLException e) {
@@ -36,14 +37,6 @@ public class Util {
             return connection;
         }
 
-        public Statement getStatement() {
-            try {
-                stat = getConnection().createStatement();
-            } catch (SQLException throwables) {
-                System.out.println("Ошибка соединения");
-            }
-            return stat;
-        }
     }
 }
 
